@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #090b10;
+  --color-base: #11151d;
+  --color-surface: #191f2a;
+  --color-raised: #242c39;
+  --color-silver: #dce1ea;
+  --color-ice: #a5c8e8;
+  --color-muted: #929eaf;
+  --color-line: #dce1ea14;
+  --color-line-strong: #dce1ea26;
+  --font-sans: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-silver);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+:focus-visible {
+  outline: 2px solid var(--color-ice);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* Barra de título */
+.drag {
+  -webkit-app-region: drag;
+}
+.no-drag,
+.drag button,
+.drag input {
+  -webkit-app-region: no-drag;
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3240;
+  border-radius: 999px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #3a4456;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Animações */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: -400px 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes progress-bar {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.page-in {
+  animation: page-in 0.45s var(--ease-out-soft) both;
+}
+.rise {
+  animation: rise 0.55s var(--ease-out-soft) both;
+}
+.toast-in {
+  animation: toast-in 0.3s var(--ease-out-soft) both;
+}
+.skeleton {
+  background: linear-gradient(90deg, #161b25 0%, #1f2632 50%, #161b25 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+.img-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.img-fade.loaded {
+  opacity: 1;
+}
+
+/* Tooltips: data-tip="Texto" */
+[data-tip] {
+  position: relative;
+}
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  z-index: 60;
+  white-space: nowrap;
+  pointer-events: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #242c39;
+  border: 1px solid #dce1ea26;
+  color: #dce1ea;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px -8px rgb(0 0 0 / 0.6);
+  animation: toast-in 0.15s ease both;
+  animation-delay: 0.35s;
+}
+[data-tip]:not([data-tip-side]):hover::after {
+  top: calc(100% + 8px);
+  left: 50%;
+  translate: -50% 0;
+}
+[data-tip-side='right']:hover::after {
+  left: calc(100% + 12px);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

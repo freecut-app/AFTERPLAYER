@@ -1,0 +1,52 @@
+{
+  "name": "afterplayer",
+  "productName": "AFTERPLAYER",
+  "version": "0.3.0",
+  "description": "AFTERPLAYER — All your games. One place.",
+  "main": "out/main/index.js",
+  "author": "AFTERPLAYER",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "dist": "electron-vite build && electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.afterplayer.app",
+    "productName": "AFTERPLAYER",
+    "directories": { "output": "release", "buildResources": "build" },
+    "files": ["out/**/*", "build/icon.png"],
+    "win": { "target": "nsis", "icon": "build/icon.png" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AFTERPLAYER",
+      "uninstallDisplayName": "AFTERPLAYER",
+      "artifactName": "AFTERPLAYER-Setup-${version}.exe"
+    }
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0",
+    "lucide-react": "^1.59.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "allowScripts": {
+    "electron@44.9.0": true
+  }
+}
